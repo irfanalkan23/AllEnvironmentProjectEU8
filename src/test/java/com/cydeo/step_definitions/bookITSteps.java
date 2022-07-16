@@ -1,8 +1,11 @@
 package com.cydeo.step_definitions;
 
+import com.cydeo.utilities.DBUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import java.util.Map;
 
 public class bookITSteps {
 
@@ -16,6 +19,12 @@ public class bookITSteps {
     }
     @When("User sends a query to bookIT DB with {string}")
     public void user_sends_a_query_to_book_it_db_with(String email) {
+        String query = "select firstname, lastname, role, t.name,t.batch_number, c.location\n" +
+                "from users u join team t on u.team_id = t.id\n" +
+                "             join campus c on u.campus_id=c.id\n" +
+                "where u.email='"+email+"'";
+        Map<String, Object> rowMap = DBUtils.getRowMap(query);
+        System.out.println("rowMap = " + rowMap);
 
     }
     @Then("UI and DB information should match")
