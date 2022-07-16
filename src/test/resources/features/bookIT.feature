@@ -1,5 +1,5 @@
 Feature: BookIT application UI and DB end to end testing
-  @wip
+  @wip  @db
   Scenario: UI and DB user verification
     Given User logs into UI app with "email" and "password"
     When User navigates to mySelf page and gets user info
