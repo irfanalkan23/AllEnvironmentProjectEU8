@@ -1,6 +1,7 @@
 package com.cydeo.step_definitions;
 
 import com.cydeo.utilities.DBUtils;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,4 +33,17 @@ public class bookITSteps {
 
     }
 
+    @And("User logs into BookIT API using {string} and {string}")
+    public void userLogsIntoBookITAPIUsingAnd(String email, String password) {
+
+    }
+
+    @And("User gets related API information")
+    public void userGetsRelatedAPIInformation() {
+
+    }
+
+    @Then("API and DB information should match")
+    public void apiAndDBInformationShouldMatch() {
+    }
 }
