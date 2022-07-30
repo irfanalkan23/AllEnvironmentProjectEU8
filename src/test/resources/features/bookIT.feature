@@ -9,9 +9,21 @@ Feature: BookIT application UI and DB end to end testing
     # ucharlot7y@nbcnews.com  username
     # archibaldmelloy  password
 
-  @wip  @db
     Scenario: DB vs API verification
-    Given User sends a query to bookIT DB with "sbirdbj@fc2.com"
-    And User logs into BookIT API using "sbirdbj@fc2.com" and "asenorval"
+      Given User sends a query to bookIT DB with "sbirdbj@fc2.com"
+      And User logs into BookIT API using "sbirdbj@fc2.com" and "asenorval"
+      And User gets related API information
+      Then API and DB information should match
+  @wip  @db
+    Scenario Outline: DB vs API verification for <email>
+    Given User sends a query to bookIT DB with "<email>"
+    And User logs into BookIT API using "<email>" and "<password>"
     And User gets related API information
     Then API and DB information should match
+    Examples:
+      | email                      | password        |
+      | jhelkin7u@hao123.com       | stantonmatus    |
+      | kodonnelly7t@bigcartel.com | robertamurrison |
+      | dcranstoun7x@sina.com.cn   | durantdominey   |
+      | ucharlot7y@nbcnews.com     | archibaldmelloy |
+      | fklampt80@seesaa.net       | timotheameade   |
