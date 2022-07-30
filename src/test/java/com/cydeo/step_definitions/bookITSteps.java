@@ -1,5 +1,6 @@
 package com.cydeo.step_definitions;
 
+import com.cydeo.utilities.BookItUtils;
 import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.DBUtils;
 import com.cydeo.utilities.Token;
@@ -94,29 +95,29 @@ public class bookITSteps {
 //                }
 //            }
 
-            path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
-            response = RestAssured.given().accept(ContentType.JSON)
-                    .and()
-                    .header("Authorization", Token.getToken())
-                    .when()
-                    .get(path);
-            apiInfoMap.put("name",response.path("name"));
+//            path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
+//            response = RestAssured.given().accept(ContentType.JSON)
+//                    .and()
+//                    .header("Authorization", Token.getToken())
+//                    .when()
+//                    .get(path);
+            apiInfoMap.put("name", BookItUtils.getInfo("/teams/my","name"));
 
-            path = ConfigurationReader.getProperty("apiUrl")+"/api/batches/my";
-            response = RestAssured.given().accept(ContentType.JSON)
-                    .and()
-                    .header("Authorization", Token.getToken())
-                    .when()
-                    .get(path);
-            apiInfoMap.put("batch_number",response.path("number"));
+//            path = ConfigurationReader.getProperty("apiUrl")+"/api/batches/my";
+//            response = RestAssured.given().accept(ContentType.JSON)
+//                    .and()
+//                    .header("Authorization", Token.getToken())
+//                    .when()
+//                    .get(path);
+            apiInfoMap.put("batch_number",BookItUtils.getInfo("/batches/my","number"));
 
-            path = ConfigurationReader.getProperty("apiUrl")+"/api/campuses/my";
-            response = RestAssured.given().accept(ContentType.JSON)
-                    .and()
-                    .header("Authorization", Token.getToken())
-                    .when()
-                    .get(path);
-            apiInfoMap.put("location",response.path("location"));
+//            path = ConfigurationReader.getProperty("apiUrl")+"/api/campuses/my";
+//            response = RestAssured.given().accept(ContentType.JSON)
+//                    .and()
+//                    .header("Authorization", Token.getToken())
+//                    .when()
+//                    .get(path);
+            apiInfoMap.put("location",BookItUtils.getInfo("/campuses/my","location"));
 
             Token.endToken();
         System.out.println("apiInfoMap = " + apiInfoMap);
