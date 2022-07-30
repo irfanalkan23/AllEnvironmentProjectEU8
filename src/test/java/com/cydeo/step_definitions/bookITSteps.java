@@ -63,6 +63,7 @@ public class bookITSteps {
     @And("User gets related API information")
     public void userGetsRelatedAPIInformation() {
         String path = "";
+        Response response;
 //            for (int i=0; i<3 ; i++){
 //                if(i==0){
 //                    path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
@@ -94,28 +95,28 @@ public class bookITSteps {
 //            }
 
             path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
-            Response response1 = RestAssured.given().accept(ContentType.JSON)
+            response = RestAssured.given().accept(ContentType.JSON)
                     .and()
                     .header("Authorization", Token.getToken())
                     .when()
                     .get(path);
-            apiInfoMap.put("name",response1.path("name"));
+            apiInfoMap.put("name",response.path("name"));
 
             path = ConfigurationReader.getProperty("apiUrl")+"/api/batches/my";
-            Response response2 = RestAssured.given().accept(ContentType.JSON)
+            response = RestAssured.given().accept(ContentType.JSON)
                     .and()
                     .header("Authorization", Token.getToken())
                     .when()
                     .get(path);
-            apiInfoMap.put("batch_number",response2.path("number"));
+            apiInfoMap.put("batch_number",response.path("number"));
 
             path = ConfigurationReader.getProperty("apiUrl")+"/api/campuses/my";
-            Response response3 = RestAssured.given().accept(ContentType.JSON)
+            response = RestAssured.given().accept(ContentType.JSON)
                     .and()
                     .header("Authorization", Token.getToken())
                     .when()
                     .get(path);
-            apiInfoMap.put("location",response3.path("location"));
+            apiInfoMap.put("location",response.path("location"));
 
             Token.endToken();
         System.out.println("apiInfoMap = " + apiInfoMap);
