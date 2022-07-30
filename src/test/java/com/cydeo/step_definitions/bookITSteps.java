@@ -11,13 +11,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class bookITSteps {
 
-    Map<String,String> apiInfoMap = new HashMap<>();
+    Map<String,Object> apiInfoMap = new HashMap<>();
     Map<String,Object> dbInfoMap = new HashMap<>();
 
 
@@ -61,10 +62,67 @@ public class bookITSteps {
 
     @And("User gets related API information")
     public void userGetsRelatedAPIInformation() {
+        String path = "";
+//            for (int i=0; i<3 ; i++){
+//                if(i==0){
+//                    path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
+//                    Response response = RestAssured.given().accept(ContentType.JSON)
+//                            .and()
+//                            .header("Authorization", Token.getToken())
+//                            .when()
+//                            .get(path);
+//                    apiInfoMap.put("name",response.path("name"));
+//                }
+//                if(i==1){
+//                    path = ConfigurationReader.getProperty("apiUrl")+"/api/batches/my";
+//                    Response response = RestAssured.given().accept(ContentType.JSON)
+//                            .and()
+//                            .header("Authorization", Token.getToken())
+//                            .when()
+//                            .get(path);
+//                    apiInfoMap.put("batch_number",response.path("number"));
+//                }
+//                if(i==2){
+//                    path = ConfigurationReader.getProperty("apiUrl")+"/api/campuses/my";
+//                    Response response = RestAssured.given().accept(ContentType.JSON)
+//                            .and()
+//                            .header("Authorization", Token.getToken())
+//                            .when()
+//                            .get(path);
+//                    apiInfoMap.put("location",response.path("location"));
+//                }
+//            }
 
+            path = ConfigurationReader.getProperty("apiUrl")+"/api/teams/my";
+            Response response1 = RestAssured.given().accept(ContentType.JSON)
+                    .and()
+                    .header("Authorization", Token.getToken())
+                    .when()
+                    .get(path);
+            apiInfoMap.put("name",response1.path("name"));
+
+            path = ConfigurationReader.getProperty("apiUrl")+"/api/batches/my";
+            Response response2 = RestAssured.given().accept(ContentType.JSON)
+                    .and()
+                    .header("Authorization", Token.getToken())
+                    .when()
+                    .get(path);
+            apiInfoMap.put("batch_number",response2.path("number"));
+
+            path = ConfigurationReader.getProperty("apiUrl")+"/api/campuses/my";
+            Response response3 = RestAssured.given().accept(ContentType.JSON)
+                    .and()
+                    .header("Authorization", Token.getToken())
+                    .when()
+                    .get(path);
+            apiInfoMap.put("location",response3.path("location"));
+
+            Token.endToken();
+        System.out.println("apiInfoMap = " + apiInfoMap);
     }
 
     @Then("API and DB information should match")
     public void apiAndDBInformationShouldMatch() {
+        Assert.assertEquals(dbInfoMap,apiInfoMap);
     }
 }
