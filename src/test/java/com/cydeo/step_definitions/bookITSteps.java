@@ -1,14 +1,25 @@
 package com.cydeo.step_definitions;
 
+import com.cydeo.utilities.ConfigurationReader;
 import com.cydeo.utilities.DBUtils;
+import com.cydeo.utilities.Token;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class bookITSteps {
+
+    Map<String,String> apiInfoMap = new HashMap<>();
+    Map<String,Object> dbInfoMap = new HashMap<>();
+
 
     @Given("User logs into UI app with {string} and {string}")
     public void user_logs_into_ui_app_with_and(String email, String password) {
@@ -24,8 +35,8 @@ public class bookITSteps {
                 "from users u join team t on u.team_id = t.id\n" +
                 "             join campus c on u.campus_id=c.id\n" +
                 "where u.email='"+email+"'";
-        Map<String, Object> rowMap = DBUtils.getRowMap(query);
-        System.out.println("rowMap = " + rowMap);
+        dbInfoMap = DBUtils.getRowMap(query);
+        System.out.println("dbInfoMap = " + dbInfoMap);
 
     }
     @Then("UI and DB information should match")
@@ -35,7 +46,17 @@ public class bookITSteps {
 
     @And("User logs into BookIT API using {string} and {string}")
     public void userLogsIntoBookITAPIUsingAnd(String email, String password) {
-
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .and()
+                .header("Authorization", Token.getToken(email,password))
+                .when()
+                .get(ConfigurationReader.getProperty("apiUrl")+"/api/students/me");
+       // response.prettyPrint();
+        JsonPath bodyData = response.jsonPath();
+        apiInfoMap.put("firstname",bodyData.getString("firstName"));
+        apiInfoMap.put("lastname",bodyData.getString("lastName"));
+        apiInfoMap.put("role",bodyData.getString("role"));
+        System.out.println("apiInfoMap = " + apiInfoMap);
     }
 
     @And("User gets related API information")
