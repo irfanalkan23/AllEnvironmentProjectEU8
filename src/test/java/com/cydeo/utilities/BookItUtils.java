@@ -19,8 +19,5 @@ public class BookItUtils {
                 .get(path).path(responsePath);
     }
 
-    public static List<Map<String ,String >> getExcelData(){
-        ExcelUtil bookitFile = new ExcelUtil("src/test/resources/BookItQa3.xlsx","QA3");
-        return bookitFile.getDataList();
-    }
+
 }
