@@ -8,7 +8,7 @@ Feature: BookIT application UI and DB end to end testing
   # HW : Finish the rest of the steps and do scenario outline
     # ucharlot7y@nbcnews.com  username
     # archibaldmelloy  password
-  @wip  @db
+  @db
     Scenario: DB vs API verification
       Given User sends a query to bookIT DB with "sbirdbj@fc2.com"
       And User logs into BookIT API using "sbirdbj@fc2.com" and "asenorval"

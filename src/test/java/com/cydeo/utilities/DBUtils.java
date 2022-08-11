@@ -21,9 +21,9 @@ public class DBUtils {
     }
 
     public static void createConnection() {
-        String dbUrl = ConfigurationReader.getProperty("dbUrl");
-        String dbUsername = ConfigurationReader.getProperty("dbUsername");
-        String dbPassword = ConfigurationReader.getProperty("dbPassword");
+        String dbUrl = ConfigurationReader.getProperty("SPdbUrl");
+        String dbUsername = ConfigurationReader.getProperty("SPdbUsername");
+        String dbPassword = ConfigurationReader.getProperty("SPdbPassword");
         try {
             connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
         } catch (SQLException e) {
